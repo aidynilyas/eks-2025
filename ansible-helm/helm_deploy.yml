@@ -1,0 +1,15 @@
+- name: Deploy Helm chart to EKS
+  hosts: localhost
+  gather_facts: false
+
+  vars:
+    kubeconfig: ~/.kube/config
+
+  tasks:
+    - name: Install NGINX via Helm
+      community.kubernetes.helm:
+        name: nginx
+        chart_ref: ingress-nginx/ingress-nginx
+        release_namespace: default
+        kubeconfig: "{{ kubeconfig }}"
+        create_namespace: false
